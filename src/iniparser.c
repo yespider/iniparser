@@ -319,6 +319,10 @@ void iniparser_dumpsection_ini(const dictionary * d, const char * s, FILE * f)
     return ;
 }
 
+void iniparser_dump_comment(char* comment, FILE *f){
+  fprintf(f, "\n;%s\n", comment);
+}
+
 /*-------------------------------------------------------------------------*/
 /**
   @brief    Get the number of keys in a section of a dictionary.

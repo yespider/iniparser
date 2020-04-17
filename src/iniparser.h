@@ -19,9 +19,7 @@
 #include <string.h>
 
 /*
- * The following #include is necessary on many Unixes but not Linux.
- * It is not needed for Windows platforms.
- * Uncomment it if needed.
+ * 下面这个头文件，除了Linux和Windows不需要，其它系统根据需要取消注释
  */
 /* #include <unistd.h> */
 
@@ -33,11 +31,10 @@ extern "C" {
 
 /*-------------------------------------------------------------------------*/
 /**
-  @brief    Configure a function to receive the error messages.
+  @brief    配置接收错误消息的回调函数
   @param    errback  Function to call.
 
-  By default, the error will be printed on stderr. If a null pointer is passed
-  as errback the error callback will be switched back to default.
+  默认错误通过stderr输出，传入回调函数指针，覆盖默认方式.
  */
 /*--------------------------------------------------------------------------*/
 
@@ -45,20 +42,14 @@ void iniparser_set_error_callback(int (*errback)(const char *, ...));
 
 /*-------------------------------------------------------------------------*/
 /**
-  @brief    Get number of sections in a dictionary
+  @brief    获取字典的sections数
   @param    d   Dictionary to examine
   @return   int Number of sections found in dictionary
 
-  This function returns the number of sections found in a dictionary.
-  The test to recognize sections is done on the string stored in the
-  dictionary: a section name is given as "section" whereas a key is
-  stored as "section:key", thus the test looks for entries that do not
-  contain a colon.
+  这个函数获取字典的sections数，section存储为"section"，key存储为"section:key"。
+  如果section包含冒号，将获取失败，因为这个section将被识别为一个key。
 
-  This clearly fails in the case a section name contains a colon, but
-  this should simply be avoided.
-
-  This function returns -1 in case of error.
+  这个函数错误时返回 -1。
  */
 /*--------------------------------------------------------------------------*/
 
@@ -67,7 +58,7 @@ int iniparser_getnsec(const dictionary * d);
 
 /*-------------------------------------------------------------------------*/
 /**
-  @brief    Get name for section n in a dictionary.
+  @brief    获取字典中第N个section的名称
   @param    d   Dictionary to examine
   @param    n   Section number (from 0 to nsec-1).
   @return   Pointer to char string
@@ -129,7 +120,7 @@ void iniparser_dump(const dictionary * d, FILE * f);
 
 /*-------------------------------------------------------------------------*/
 /**
-  @brief    Get the number of keys in a section of a dictionary.
+  @brief    获取某个section中key的数量
   @param    d   Dictionary to examine
   @param    s   Section name of dictionary to examine
   @return   Number of keys in section
@@ -139,7 +130,7 @@ int iniparser_getsecnkeys(const dictionary * d, const char * s);
 
 /*-------------------------------------------------------------------------*/
 /**
-  @brief    Get the number of keys in a section of a dictionary.
+  @brief    获取某个section中所有的key的名称Get the number of keys in a section of a dictionary.
   @param    d    Dictionary to examine
   @param    s    Section name of dictionary to examine
   @param    keys Already allocated array to store the keys in
@@ -350,6 +341,8 @@ dictionary * iniparser_load(const char * ininame);
  */
 /*--------------------------------------------------------------------------*/
 void iniparser_freedict(dictionary * d);
+
+void iniparser_dump_comment(char* comment, FILE *f);
 
 #ifdef __cplusplus
 }
