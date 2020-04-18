@@ -1,0 +1,10 @@
+[record]
+;运动时间，X小时X分X秒
+motion_time_string = 00:02:03
+;运动时间，秒
+motion_time = 123
+
+;系统运行时间，X小时X分X秒
+rcs_time_string = 00:02:03
+;系统运行时间，秒
+rcs_time = 123
