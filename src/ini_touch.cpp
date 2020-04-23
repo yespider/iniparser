@@ -4,15 +4,20 @@
 
 
 #include "iniparser.h"
-#include "accumulover_time.hpp"
+#include "accumulover.hpp"
 
 #define INI_PATH "./test.ini"
 #define TIME_PATH "./time.ini"
 
+  Accumulover at(TIME_PATH);
+  Accumulover* ttttttt = &at;
 int main(int argc,char* argv[] ){
-  AccumuloverTime* at = AccumuloverTime::GetInstance(TIME_PATH);
   sleep(3);
-  AccumuloverTime::UpdateAccumuloverTime(1,0);
+  at.UpdateTime(1);
+  sleep(3);
+  at.UpdateTime(1);
+  at.UpdateOdometer(10);
+  at.Dump(true);
   return 0;
 
   FILE       *fp          = nullptr;
